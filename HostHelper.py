@@ -20,6 +20,7 @@ def fetch_gfw_domains():
                 matches = re.search(r"([a-zA-Z0-9-]{1,}\.){1,}[a-zA-Z0-9-]{1,}",domain,re.I)
                 if matches:
                     domains.add(matches.group(0))
+    custom.close()
     return domains
 
 
