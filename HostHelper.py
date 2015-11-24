@@ -13,12 +13,13 @@ def fetch_gfw_domains():
     response = requests.get("https://raw.githubusercontent.com/racaljk/hosts/master/hosts")
     if response.ok and response.content:
         domain = None
-        stream = StringIO.StringIO(response.content + "\n" + custom.read())
+        contents = response.content + "\r\n" + custom.read()
+        stream = StringIO.StringIO(contents)
         for domain in stream.readlines():
-            domain = domain.strip()
+            domain = domain.strip().split("\t")[1] if domain.strip().find("\t") >= 0 else domain.strip()
             if not domain.startswith("#") and domain:
-                matches = re.search(r"([a-zA-Z0-9-]{1,}\.){1,}[a-zA-Z0-9-]{1,}",domain,re.I)
-                if matches:
+                matches = re.search(r"([a-zA-Z0-9-_]{1,}\.){1,}[a-zA-Z0-9-_]{1,}",domain,re.U|re.I)
+                if matches and not re.match(r"(\d{1,}\.){1,}\d{1,}",domain,re.U|re.I):
                     domains.add(matches.group(0))
     custom.close()
     return domains
