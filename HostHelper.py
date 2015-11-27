@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # coding:UTF8
-# author : zhaohui mail:zhaohui@meizu.com
+# author : zhaohui mail:zhaohui-sol@foxmail.com
 
 import re,socket,threadpool,requests,base64,StringIO
 
